@@ -9,10 +9,9 @@ import app from "./app.reducer";
 import trainer from './trainer.reducer';
 import {callState} from "./initialState";
 import * as actionTypes from "../actions/actionTypes";
+
 import postReducer from './postReducer'
 import postCreateReducer from './postCreateReducer'
-
-
 const authPersistConfig = {
   key: 'auth',
   storage: AsyncStorage

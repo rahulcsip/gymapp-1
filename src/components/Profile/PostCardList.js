@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, StyleSheet, View, FlatList } from "react-native";
+import { Text, StyleSheet, View, FlatList ,AsyncStorage} from "react-native";
 import PostCard from "./PostCard";
 import { spacing } from "../../constants/dimension";
 import {postActionList} from '../../store/actions/postAction'
@@ -100,8 +100,9 @@ export  class PostCardList extends Component {
   
   
   async componentDidMount() {
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJyYWh1bGNzaXAxQGdtYWlsLmNvbSIsInVzZXJUeXBlIjoiVVNFUiIsInVzZXJJZCI6IkJCMzAyQ1p6d3RialNCQU82RmNDZ0N4QkxubDEiLCJpYXQiOjE1OTM3Mjc1Mjd9.Gug1lcvUSmDsBtYYa-izA34iRRmpyjwufAoE-3xM1ac"
-  
+    
+    const token = await AsyncStorage.getItem('@token');
+
     this.props.postActionList(token);
     
   }

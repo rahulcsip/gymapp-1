@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
+  AsyncStorage
 } from "react-native";
 import { spacing } from "../../constants/dimension";
 import ImagePicker from "react-native-image-picker";
@@ -24,9 +25,12 @@ export  class CreatePost extends Component {
     this.state = {
       image: null,
       status:false,
-      postText:""
+      postText:"",
+      path:''
     };
   }
+
+
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.forgetPassword !== this.props.forgetPassword) {
@@ -57,13 +61,14 @@ export  class CreatePost extends Component {
 
 
 
-  postSubmit=()=>{
+
+  postSubmit= async()=>{
   
-    const { image, postText} = this.state
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJyYWh1bGNzaXAxQGdtYWlsLmNvbSIsInVzZXJUeXBlIjoiVVNFUiIsInVzZXJJZCI6IkJCMzAyQ1p6d3RialNCQU82RmNDZ0N4QkxubDEiLCJpYXQiOjE1OTM3Mjc1Mjd9.Gug1lcvUSmDsBtYYa-izA34iRRmpyjwufAoE-3xM1ac"
+    const { image, postText,path} = this.state
+    const token = await AsyncStorage.getItem('@token');
 
     const data = {
-        mediaContent: image,
+        path: path,
         textContent:postText,
 
       };
@@ -98,7 +103,8 @@ open=()=>{
         console.log("image url ------------------------------", response.uri);
         this.setState({
           image: response.uri,
-          status:false
+          status:false,
+          path:response.path
         });
       }
     });
